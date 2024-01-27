@@ -3,12 +3,11 @@ import { checkValidData } from '../utils/Validate'
 import {auth} from "../utils/firebase"
 import Header from './Header'
 import { createUserWithEmailAndPassword,signInWithEmailAndPassword,updateProfile } from "firebase/auth";
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addUser, removeUser } from '../utils/userSlice';
+import { addUser} from '../utils/userSlice';
+import {loginBackgroundPhoto,photoUrl} from "../utils/constant"
 const Login = () => {
   const dispatch =useDispatch()
-  const navigate = useNavigate()
   const name = useRef(null)
   const email = useRef(null)
   const password = useRef(null)
@@ -32,17 +31,16 @@ const Login = () => {
             // Signed up 
             //when the user is signed up we need to update profile in firebase 
             updateProfile(auth.currentUser, {
-                displayName: name.current.value, photoURL: "https://avatars.githubusercontent.com/u/106731352?s=400&u=96f7993b24d0a7a7c5edccafe35811d7eca313dc&v=4"
+                displayName: name.current.value, photoURL: photoUrl
               }).then(() => {
                 // Profile updated!
-                //we need to dispatch the data to store 
-                //but as we observe we use auth.currentUser because as soon as login/sign-up/logout done onAuthStateChanged function works
-                // and it store the user current value 
-                //in onAuthStateChanged we do-not update displayname and profile photo  (it store null) 
-                //because onAuthStateChanged initiate earlier then updateProfile works so that's we dispatch here to store photo and displayName
+                //but there is a question arises why we need to update the store again 
+                //it is because as we see that when the user first time sign-up ,this function onAuthStateChanged we get null for 
+                //profile photo and name so when we update the name and photo in firebase with updateProfile function then after success
+                //it is necessary to update the value in store.
+                //and in below line we use auth.currentUser because updateProfile function update the profile and it(auth.currentUser) has the latest value
                 const {uid, email, displayName, photoURL} = auth.currentUser;
                 dispatch(addUser({uid:uid, email:email, displayName:displayName, photoURL:photoURL}))
-                navigate("/browse")
               }).catch((error) => {
                 // An error occurred
                 // ...
@@ -60,7 +58,6 @@ const Login = () => {
       //sign-in
       signInWithEmailAndPassword(auth, email.current.value, password.current.value)
         .then((userCredential) => {
-            navigate("/browse")
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -73,7 +70,7 @@ const Login = () => {
     <div>
         <Header />
         <div className='absolute'>
-        <img src="https://assets.nflxext.com/ffe/siteui/vlv3/32c47234-8398-4a4f-a6b5-6803881d38bf/eed3a573-8db7-47ca-a2ce-b511e0350439/IN-en-20240122-popsignuptwoweeks-perspective_alpha_website_large.jpg"
+        <img src={loginBackgroundPhoto}
              alt="Background_Image" 
         />
         </div>

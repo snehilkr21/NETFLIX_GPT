@@ -13,6 +13,13 @@
 - Implemented sign In user Api
 - created Redux store with userSlice
 - As soon as user sign in userSlice is updated with user details 
+- Implemented Sign out
+- Update Profile
+- BugFix : Sign up user dispalyname and prfile picture update
+- BugFix : if the user is not logged in redirect to /browse to login page and vice-versa
+- unsubsribed to the onAuthStateChanges callback
+- Add hardcoded page with constant value 
+
 
 ### features
 -Login/Sign UP page
