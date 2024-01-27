@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { createBrowserRouter ,RouterProvider} from 'react-router-dom'
+import { createBrowserRouter ,RouterProvider, useNavigate} from 'react-router-dom'
 import Browse from './Browse'
 import Login from './Login'
 import {  onAuthStateChanged } from "firebase/auth";
@@ -19,12 +19,16 @@ const Body = () => {
             element : <Browse/>
         }
     ])
+
+    //onAuthStateChanged is a function given by firebase which check current state of user means weather it login or logout
+    //so writing dispatch(addUser / dispatch(removeUser here and there we write in a central place 
+    //so when user login we dispatch(addUser and for logout dispatch(removeUser
+    //it is just like event listner 
+    //so why we do not write navigate("/browse") after dispatch add user because navigate only work inside the children of Router Provider 
+    //here children means "/" ,"/browse"
     useEffect(()=>{
         onAuthStateChanged(auth, (user) => {
             if (user) {
-              // User is signed in, see docs for a list of available properties
-              // https://firebase.google.com/docs/reference/js/auth.user
-              //   const uid = user.uid;
               const {uid, email, displayName, photoURL} = user;
               dispatch(addUser({uid:uid, email:email, displayName:displayName, photoURL:photoURL}))
             } else {

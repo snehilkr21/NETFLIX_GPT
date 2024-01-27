@@ -26,13 +26,20 @@ const Login = () => {
     //sign-in || sign-up
     if(!isSignInForm){
       //sign-up
+      //createUserWithEmailAndPassword create a need user and add it to firebase
       createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
         .then((userCredential) => {
             // Signed up 
+            //when the user is signed up we need to update profile in firebase 
             updateProfile(auth.currentUser, {
                 displayName: name.current.value, photoURL: "https://avatars.githubusercontent.com/u/106731352?s=400&u=96f7993b24d0a7a7c5edccafe35811d7eca313dc&v=4"
               }).then(() => {
                 // Profile updated!
+                //we need to dispatch the data to store 
+                //but as we observe we use auth.currentUser because as soon as login/sign-up/logout done onAuthStateChanged function works
+                // and it store the user current value 
+                //in onAuthStateChanged we do-not update displayname and profile photo  (it store null) 
+                //because onAuthStateChanged initiate earlier then updateProfile works so that's we dispatch here to store photo and displayName
                 const {uid, email, displayName, photoURL} = auth.currentUser;
                 dispatch(addUser({uid:uid, email:email, displayName:displayName, photoURL:photoURL}))
                 navigate("/browse")
