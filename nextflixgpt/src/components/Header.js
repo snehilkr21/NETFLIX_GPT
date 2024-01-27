@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 import {netflixLogo} from "../utils/constant"
 const Header = () => {
   const dispatch = useDispatch()
-  const user = useSelector((store)=>store.user.initialState)
+  const user = useSelector((store)=>store?.user?.userInfo)
   const navigate = useNavigate()
   const handleSignOut = () =>{
     signOut(auth).then(() => {
@@ -59,9 +59,9 @@ const Header = () => {
             <>
             <img src={user?.photoURL}
                     alt="user_icon"
-                    className='w-10 h-10 my-4'
+                    className='w-10 h-10 my-4 rounded-lg '
             />
-            <button className='px-2 ' onClick={handleSignOut}>Sign Out</button>
+            <button className='px-2 text-white' onClick={handleSignOut}>Sign Out</button>
             </>
            }
         </div>

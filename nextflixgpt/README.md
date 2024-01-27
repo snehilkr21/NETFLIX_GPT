@@ -18,7 +18,17 @@
 - BugFix : Sign up user dispalyname and prfile picture update
 - BugFix : if the user is not logged in redirect to /browse to login page and vice-versa
 - unsubsribed to the onAuthStateChanges callback
-- Add hardcoded page with constant value 
+- Add hardcoded values to the constant file
+- Register TMDB API & create app & get access-token
+- Get data from TMDB now playing movies list
+- Custom Hooks for nowPlayingMovies
+- create ovie slice
+- update store with movie data
+- planning for main container and secondary container
+- fetch data for trailer video using custom hook 
+- update store with trailer video data
+- embedded the youtube video and make it autoplay and mute
+- tailwind classes to make main container look awesome
 
 
 ### features
