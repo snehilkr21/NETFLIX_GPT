@@ -35,7 +35,10 @@
 - TMDB Image CDM Url
 - Make the browse page impressive
 - usePopular custom hook
-
+- GPT search feature
+- GPT search bar
+- Multi language feature
+- Integrate GPT API
 
 ### features
 -Login/Sign UP page
