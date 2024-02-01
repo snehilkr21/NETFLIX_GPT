@@ -39,7 +39,15 @@
 - GPT search bar
 - Multi language feature
 - Integrate GPT API
-
+- Get Open Ai Api key
+- Gpt Search Api call
+- fetch getMoviesSuggestion from TMDB
+- created gptSlice added data
+- Reused Movie list component to make movie suggestion container
+- Memoization
+- added .env file
+- Added.env file to gitignore
+ 
 ### features
 -Login/Sign UP page
    -Sign In /Sign up form
